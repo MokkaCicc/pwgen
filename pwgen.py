@@ -12,7 +12,7 @@ NUMBERS = "0123456789"
 SPECIALS = "!@#$%^&*"
 
 
-def init_parser()->ArgumentParser:
+def init_parser() -> ArgumentParser:
 	parser = ArgumentParser(
 		prog=NAME,
 		description="Password generator"
@@ -48,14 +48,14 @@ def init_parser()->ArgumentParser:
 	)
 	return parser
 
-def strictly_positive_int(value:str)->int:
+def strictly_positive_int(value: str) -> int:
 	ivalue = int(value)
 	if ivalue <= 0:
 		raise ArgumentTypeError(f"invalid strictly_positive_int value: {value}")
 	return ivalue
 
 # 2 time more letters than number or special (2 time the alphabet)
-def construct_letters_set(args:Namespace)->str:
+def construct_letters_set(args: Namespace) -> str:
 	letters_set = LOWER_ALPHA
 	if args.has_uppercase or args.has_all:
 		letters_set += UPPER_ALPHA
@@ -66,14 +66,14 @@ def construct_letters_set(args:Namespace)->str:
 	return letters_set
 
 # add minimum one of each letters type (upper, lower, number and special)
-def generate_password(length:int, letters_set:str)->str:
+def generate_password(length: int, letters_set: str) -> str:
 	password = ""
 	for i in range(length):
 		password += choice(letters_set)
 	return password
 
 
-def main()->None:
+def main() -> None:
 	parser = init_parser()
 	args = parser.parse_args()
 	letters_set = construct_letters_set(args)
